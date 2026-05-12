@@ -94,12 +94,11 @@ form.addEventListener("submit", async (e) => {
 
     button.textContent = "Checked In ✓";
 
-    setTimeout(() => {
-      form.reset();
-      button.textContent = "Check In";
-      button.disabled = false;
-      document.getElementById("name").focus();
-    }, 1500);
+    button.textContent = "Checked In ✓";
+
+setTimeout(() => {
+  window.location.href = "./index.html";
+}, 1200);
 
   } catch (err) {
     button.textContent = "Error - Try Again";
