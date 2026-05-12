@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width,
+    initial-scale=1,
+    maximum-scale=1,
+    user-scalable=no,
+    viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#2563eb">
+  <title>Student Check-In</title>
+  <style>
+    body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #f3f4f6;
+
+  overflow: hidden;
+  overscroll-behavior: none;
+
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+    .card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 600px;
+    }
+    h1 { text-align: center; margin-bottom: 1.5rem; }
+    label { display: block; margin-top: 1rem; font-weight: 600; }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      font-size: 18px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 16px;
+      font-size: 18px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:disabled { background: #9ca3af; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Voice Class Coaching Check-In</h1>
+   <form id="checkinForm">
+      <label for="name">Student Name</label>
+      <input id="name" name="name" required autocomplete="name">
+
+      <label for="song">Song</label>
+      <input id="song" name="song" required>
+
+      <button type="submit" id="submitBtn">Check In</button>
+    </form>
+  </div>
+
+  <script>
+const form = document.getElementById("checkinForm");
+const button = document.getElementById("submitBtn");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  button.textContent = "Submitting...";
+  button.disabled = true;
+
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbyfQ7MjdvdqNU-svyvZK8-tOg9tk7C5bVt-7TLTrxn5ht7EYO_RFTvKlOOrQrnMJevU/exec", {
+      method: "POST",
+      body: new FormData(form)
+    });
+
+    button.textContent = "Checked In ✓";
+
+    setTimeout(() => {
+      form.reset();
+      button.textContent = "Check In";
+      button.disabled = false;
+      document.getElementById("name").focus();
+    }, 1500);
+
+  } catch (err) {
+    button.textContent = "Error - Try Again";
+    button.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
